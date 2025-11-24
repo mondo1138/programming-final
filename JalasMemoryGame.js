@@ -10,14 +10,21 @@ for (let i = 0; i < cards.length; i++)
 
 
 //start game function
-function startGame()
+function startOfGame()
 {
     incorrectAttempts = 0;
     firstPick = null;
-    secondPick = null;
-    maxAttempts = 16;
-    playing = false;
+    secondPick;
+    stopClicks = false;
+    const maxAttempts = 16;
     
+    cardsShuffled = [];
+    for (let i = 0; i <= cardsList.length; i++)
+    {
+        cardsShuffled.push(cardList[i]);
+        cardsShuffled.push(cardList[i]);
+    }
+
     //still need to add more here
 }
 
@@ -81,5 +88,6 @@ function handleCardFlip()
         }
     }
 }
+
 
 
