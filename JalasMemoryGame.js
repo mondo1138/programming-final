@@ -35,7 +35,7 @@ function handleCardFlip()
                 break;
             }
         }
-        return;
+        break;
     }
     //handle the second pick
     for (let j = 0; j < cards.length; j++)
@@ -82,3 +82,4 @@ function handleCardFlip()
         }
     }
 }
+
