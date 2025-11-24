@@ -46,7 +46,6 @@ function handleCardFlip()
             break;
         }
     }
-    if (!secondPick) return;
     stopClicks = true;
 
     //check for a match
@@ -82,4 +81,5 @@ function handleCardFlip()
         }
     }
 }
+
 
