@@ -8,12 +8,15 @@ for (let i = 0; i < cards.length; i++)
     }
 }
 
-incorrectAttempts = 0;
-firstPick = null;
-secondPick;
-stopClicks = false;
+let incorrectAttempts = 0;
+let firstPick = null;
+let secondPick = null;
+let stopClicks = false;
 const maxAttempts = 16;
-
+const scoreBoard = document.createElement("p");
+scoreBoard.textContent = "Score Board: ";
+document.body.appendChild(scoreBoard);
+scoreBoard = 0
 //start game function
 function startOfGame()
 {
@@ -87,6 +90,7 @@ function handleCardFlip()
         }
     }
 }
+
 
 
 
