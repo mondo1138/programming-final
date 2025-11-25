@@ -14,9 +14,12 @@ let secondPick = null;
 let stopClicks = false;
 const maxAttempts = 16;
 let score = 0;
+//Got this idea from W3Schools.com
 const scoreBoard = document.createElement("p");
-scoreBoard.textContent = "Score Board: " + score;
+scoreBoard.textContent = "SCORE: " + score;
+scoreBoard.style.fontSize = "35px";
 document.body.appendChild(scoreBoard);
+//End of W3Schools code
 //start game function
 function startOfGame()
 {
@@ -93,6 +96,7 @@ function handleCardFlip()
         }
     }
 }
+
 
 
 
