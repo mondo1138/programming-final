@@ -14,9 +14,9 @@ let secondPick = null;
 let stopClicks = false;
 const maxAttempts = 16;
 const scoreBoard = document.createElement("p");
-scoreBoard.textContent = "Score Board: ";
+scoreBoard.textContent = "Score Board: " + score;
 document.body.appendChild(scoreBoard);
-scoreBoard = 0
+let score = 0
 //start game function
 function startOfGame()
 {
@@ -90,6 +90,7 @@ function handleCardFlip()
         }
     }
 }
+
 
 
 
