@@ -13,10 +13,10 @@ let firstPick = null;
 let secondPick = null;
 let stopClicks = false;
 const maxAttempts = 16;
+let score = 0;
 const scoreBoard = document.createElement("p");
 scoreBoard.textContent = "Score Board: " + score;
 document.body.appendChild(scoreBoard);
-let score = 0
 //start game function
 function startOfGame()
 {
@@ -26,7 +26,10 @@ function startOfGame()
         cardsShuffled.push(cardList[i]);
         cardsShuffled.push(cardList[i]);
     }
-
+if (firstPick.imageSource === secondPick.imageSource)
+    {
+        score++
+    }
     //still need to add more here
 }
 
@@ -90,6 +93,7 @@ function handleCardFlip()
         }
     }
 }
+
 
 
 
