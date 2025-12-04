@@ -107,6 +107,16 @@ reward.style.display = "none";
 reward.style.fontSize = "20px";
 reward.style.marginTop = "20px";
 
+  // show win button if all pairs matched
+    if (matchedCount === totalPairs) {
+        reward.style.display = "block";
+    }
+
+    firstPick = null;
+    secondPick = null;
+    stopClicks = false;
+}
+
 // Add button to the page
 document.body.appendChild(reward);
 
@@ -116,6 +126,7 @@ document.body.appendChild(reward);
 reward.onclick = function () {
     reward.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"; 
 };
+
 
 
 
