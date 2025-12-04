@@ -11,11 +11,17 @@ let cardList =
 "Image7",
 "Image8"
 ]
-
-
-
-
+let cards = [];
 let randomCards = [];
+let incorrectAttempts = 0;
+let firstPick = null;
+let secondPick = null;
+let stopClicks = false;
+const maxAttempts = 16;
+let score = 0;
+let matchedCount = 0;
+let totalPairs = 8;
+
 
 for (let i = 0; i < cardList.length; i++) 
     {
@@ -25,7 +31,7 @@ for (let i = 0; i < cardList.length; i++)
 
 randomCards.sort(function() 
 {
-    return Math.random() ;
+    return Math.random() - 0.5 ;
 });
 
 class cardGame
@@ -71,50 +77,46 @@ class cardGame
   }
 }
 
-let incorrectAttempts = 0;
-let firstPick = null;
-let secondPick = null;
-let stopClicks = false;
-const maxAttempts = 16;
-let score = 0;
-let matchedCount = 0;
-let totalPairs = 8;
+
 //Got this idea from W3Schools.com
 const scoreBoard = document.createElement("p");
 scoreBoard.textContent = "SCORE: " + score;
 scoreBoard.style.fontSize = "35px";
 document.body.appendChild(scoreBoard);
 //End of W3Schools code
+//linking the photos to the HTML file
+for (let i = 1; i <= 16; i++) {
+    let img = document.getElementById("imgCellNum" + i);
 
-//handle card flip function
+    // images get their names from randomCards array
+    let source = randomCards[i - 1] + ".jpg";  // change .jpg if needed
+
+    let card = new cardGame(source, img);
+    cards.push(card);
+}
 function handleCardFlip()
-  if (firstPick === null)
+{
+    //handle the first pick
+    if (!firstPick)
     {
         for (let i = 0; i < cards.length; i++)
         {
             if (cards[i].isFlipped && !cards[i].isMatched)
             {
                 firstPick = cards[i];
-                return;
-            }
-        }
-    }
-
-    //handle second pick
-    if (secondPick === null)
-    {
-        for (let j = 0; j < cards.length; j++)
-        {
-            if (cards[j].isFlipped && !cards[j].isMatched && cards[j] !== firstPick)
-            {
-                secondPick = cards[j];
                 break;
             }
         }
     }
-
-    if (secondPick === null) return;
-
+    //handle the second pick
+    for (let j = 0; j < cards.length; j++)
+    {
+        if(cards[j].isFlipped && !cards[j].isMatched && cards[j] !== firstPick)
+        {
+            secondPick = cards[j];
+            break;
+        }
+    }
     stopClicks = true;
 
     //check for a match
@@ -127,8 +129,6 @@ function handleCardFlip()
         secondPick.imageElement.style.visibility = "hidden";
 
         matchedCount++
-
-        scoreBoard.textContext = "SCORE: " + matchedCount;
         
         firstPick = null;
         secondPick = null;
@@ -163,10 +163,9 @@ reward.style.marginTop = "20px";
 
   // show win button if all pairs matched
     if (matchedCount === totalPairs)
-    {
-        reward.style.display = "block";
-    }
-
+{
+    reward.style.display = "block";
+    
     firstPick = null;
     secondPick = null;
     stopClicks = false;
@@ -178,8 +177,6 @@ document.body.appendChild(reward);
 // Button redirect when clicked
 //found the href method to redirect to a different page from W3schools
 //https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
-reward.onclick = function ()
-{
+reward.onclick = function () {
     reward.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"; 
 };
-
