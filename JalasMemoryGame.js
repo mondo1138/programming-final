@@ -42,27 +42,33 @@ if (firstPick.imageSource === secondPick.imageSource)
 function handleCardFlip()
 {
     //handle the first pick
-    if (!firstPick)
+    if (firstPick === null)
     {
         for (let i = 0; i < cards.length; i++)
         {
             if (cards[i].isFlipped && !cards[i].isMatched)
             {
                 firstPick = cards[i];
+                return;
+            }
+        }
+    }
+
+    //handle second pick
+    if (secondPick === null)
+    {
+        for (let j = 0; j < cards.length; j++)
+        {
+            if (cards[j].isFlipped && !cards[j].isMatched && cards[j] !== firstPick)
+            {
+                secondPick = cards[j];
                 break;
             }
         }
-        break;
     }
-    //handle the second pick
-    for (let j = 0; j < cards.length; j++)
-    {
-        if(cards[j].isFlipped && cards[j].isMatched && cards[j] !== firstPick)
-        {
-            secondPick = cards[j];
-            break;
-        }
-    }
+
+    if (secondPick === null) return;
+
     stopClicks = true;
 
     //check for a match
@@ -126,6 +132,7 @@ document.body.appendChild(reward);
 reward.onclick = function () {
     reward.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"; 
 };
+
 
 
 
