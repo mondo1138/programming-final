@@ -103,28 +103,33 @@ if (firstPick.imageSource === secondPick.imageSource)
 
 //handle card flip function
 function handleCardFlip()
-{
-    //handle the first pick
-    if (!firstPick)
+  if (firstPick === null)
     {
         for (let i = 0; i < cards.length; i++)
         {
             if (cards[i].isFlipped && !cards[i].isMatched)
             {
                 firstPick = cards[i];
+                return;
+            }
+        }
+    }
+
+    //handle second pick
+    if (secondPick === null)
+    {
+        for (let j = 0; j < cards.length; j++)
+        {
+            if (cards[j].isFlipped && !cards[j].isMatched && cards[j] !== firstPick)
+            {
+                secondPick = cards[j];
                 break;
             }
         }
     }
-    //handle the second pick
-    for (let j = 0; j < cards.length; j++)
-    {
-        if(cards[j].isFlipped && cards[j].isMatched && cards[j] !== firstPick)
-        {
-            secondPick = cards[j];
-            break;
-        }
-    }
+
+    if (secondPick === null) return;
+
     stopClicks = true;
 
     //check for a match
@@ -137,6 +142,8 @@ function handleCardFlip()
         secondPick.imageElement.style.visibility = "hidden";
 
         matchedCount++
+
+        scoreBoard.textContext = "SCORE: " + matchedCount;
         
         firstPick = null;
         secondPick = null;
@@ -171,9 +178,10 @@ reward.style.marginTop = "20px";
 
   // show win button if all pairs matched
     if (matchedCount === totalPairs)
-{
-    reward.style.display = "block";
-    
+    {
+        reward.style.display = "block";
+    }
+
     firstPick = null;
     secondPick = null;
     stopClicks = false;
@@ -185,6 +193,7 @@ document.body.appendChild(reward);
 // Button redirect when clicked
 //found the href method to redirect to a different page from W3schools
 //https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
-reward.onclick = function () {
+reward.onclick = function ()
+{
     reward.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"; 
 };
