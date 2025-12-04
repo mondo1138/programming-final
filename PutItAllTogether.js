@@ -10,7 +10,8 @@ let cardList =
 "Image6",
 "Image7",
 "Image8"
-]
+];
+
 let cards = [];
 let randomCards = [];
 let incorrectAttempts = 0;
@@ -22,161 +23,143 @@ let score = 0;
 let matchedCount = 0;
 let totalPairs = 8;
 
+// shuffle 
 
-for (let i = 0; i < cardList.length; i++) 
-    {
-        randomCards.push(cardList[i]); 
-        randomCards.push(cardList[i]);
-    }
-
-randomCards.sort(function() 
-{
-    return Math.random() - 0.5 ;
-});
-
-class cardGame
-{
-  constructor(imageSource, imageElement) 
-  {
-    this.imageSource = imageSource;  
-    this.imageElement = imageElement;    
-    this.isFlipped = false;
-    this.isMatched = false;
-
-    
-    imageElement.addEventListener("click", () => 
-    {
-      this.flipCard();
-    });
-  }
-
-
-  flipCard()
-  {
-    if (this.isMatched) return
-    if (this.isFlipped) return; 
-    if (stopClicks) return;     
-
-    this.isFlipped = true;
-    this.imageElement.src = this.imageSource; 
-
-    handleCardFlip();
-  }
-
-  
-  hideCard() 
-  {
-    this.isFlipped = false;
-    this.imageElement.src = "logo_header.gif"; 
-  }
-
-  
-  matchCard() 
-  {
-    this.isMatched = true;
-  }
+for (let i = 0; i < cardList.length; i++) {
+    randomCards.push(cardList[i]);
+    randomCards.push(cardList[i]);
 }
 
+randomCards.sort(() => Math.random() - 0.5);
 
-//Got this idea from W3Schools.com
+// class
+
+class cardGame {
+    constructor(imageSource, imageElement) {
+        this.imageSource = imageSource;
+        this.imageElement = imageElement;
+        this.isFlipped = false;
+        this.isMatched = false;
+
+        this.imageElement.src = "logo_header.gif";
+
+        imageElement.addEventListener("click", () => {
+            this.flipCard();
+        });
+    }
+
+    flipCard() {
+        if (this.isMatched) return;
+        if (this.isFlipped) return;
+        if (stopClicks) return;
+
+        this.isFlipped = true;
+        this.imageElement.src = this.imageSource;
+
+        handleCardFlip();
+    }
+
+    hideCard() {
+        this.isFlipped = false;
+        this.imageElement.src = "logo_header.gif";
+    }
+
+    matchCard() {
+        this.isMatched = true;
+    }
+}
+
+//scoreboard
+
 const scoreBoard = document.createElement("p");
 scoreBoard.textContent = "SCORE: " + score;
 scoreBoard.style.fontSize = "35px";
 document.body.appendChild(scoreBoard);
-//End of W3Schools code
-//linking the photos to the HTML file
+
+//create cards & bind to html
+
 for (let i = 1; i <= 16; i++) {
     let img = document.getElementById("imgCellNum" + i);
 
-    // images get their names from randomCards array
-    let source = randomCards[i - 1] + ".jpg";  // change .jpg if needed
+    let source = randomCards[i - 1] + ".jpg";
 
     let card = new cardGame(source, img);
     cards.push(card);
 }
-function handleCardFlip()
-{
-    //handle the first pick
-    if (!firstPick)
-    {
-        for (let i = 0; i < cards.length; i++)
-        {
-            if (cards[i].isFlipped && !cards[i].isMatched)
-            {
-                firstPick = cards[i];
-                break;
-            }
-        }
+
+// card flip logic
+
+function handleCardFlip() {
+
+    // Find first pick
+    if (!firstPick) {
+        firstPick = cards.find(c => c.isFlipped && !c.isMatched);
+        return;
     }
-    //handle the second pick
-    for (let j = 0; j < cards.length; j++)
-    {
-        if(cards[j].isFlipped && !cards[j].isMatched && cards[j] !== firstPick)
-        {
-            secondPick = cards[j];
-            break;
-        }
-    }
+
+    // Find second pick
+    secondPick = cards.find(c => c.isFlipped && !c.isMatched && c !== firstPick);
+
+    if (!secondPick) return;
+
     stopClicks = true;
 
-    //check for a match
-    if (firstPick.imageSource === secondPick.imageSource)
-    {
+    // MATCH
+    if (firstPick.imageSource === secondPick.imageSource) {
+        
         firstPick.matchCard();
         secondPick.matchCard();
 
-        firstPick.imageElement.style.visibility = "hidden";
-        secondPick.imageElement.style.visibility = "hidden";
+        setTimeout(() => {
+            firstPick.imageElement.style.visibility = "hidden";
+            secondPick.imageElement.style.visibility = "hidden";
 
-        matchedCount++
-        
-        firstPick = null;
-        secondPick = null;
-        stopClicks = false;
+            matchedCount++;
+            score += 1;
+            scoreBoard.textContent = "SCORE: " + score;
+
+            if (matchedCount === totalPairs) {
+                reward.style.display = "block";
+            }
+
+            resetPicks();
+        }, 700);
     }
-    else
-    {
+
+    // NO MATCH
+    else {
         incorrectAttempts++;
 
-        function setTimeout()
-        {
+        setTimeout(() => {
             firstPick.hideCard();
             secondPick.hideCard();
 
-            firstPick = null;
-            secondPick = null;
-            stopClicks = false;
-
-            if (incorrectAttempts >= maxAttempts)
-            {
-                alert("Game Over!! Too many attempts!");
+            if (incorrectAttempts >= maxAttempts) {
+                alert("Game Over‼ Too many incorrect attempts!");
+                location.reload();
             }
-        }
+
+            resetPicks();
+        }, 1000);
     }
 }
-//reward button for if they win
-let reward = document.createElement("button");
-reward.innerHTML = "Congrats, you win!! Click here for your prize!";
-reward.style.display = "none"; 
-reward.style.fontSize = "20px";
-reward.style.marginTop = "20px";
 
-  // show win button if all pairs matched
-    if (matchedCount === totalPairs)
-{
-    reward.style.display = "block";
-    
+function resetPicks() {
     firstPick = null;
     secondPick = null;
     stopClicks = false;
 }
 
-// Add button to the page
+//Reward :)
+
+let reward = document.createElement("button");
+reward.innerHTML = "Congrats, you win!! Click here for your prize!";
+reward.style.display = "none";
+reward.style.fontSize = "20px";
+reward.style.marginTop = "20px";
 document.body.appendChild(reward);
 
-// Button redirect when clicked
-//found the href method to redirect to a different page from W3schools
-//https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
+// Le redirect
 reward.onclick = function () {
-    reward.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"; 
+    window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 };
