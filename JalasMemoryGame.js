@@ -14,8 +14,8 @@ let secondPick = null;
 let stopClicks = false;
 const maxAttempts = 16;
 let score = 0;
-Let matchedCount = 0;
-Let totalPairs = 8;
+let matchedCount = 0;
+let totalPairs = 8;
 //Got this idea from W3Schools.com
 const scoreBoard = document.createElement("p");
 scoreBoard.textContent = "SCORE: " + score;
@@ -126,6 +126,7 @@ document.body.appendChild(reward);
 reward.onclick = function () {
     reward.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"; 
 };
+
 
 
 
