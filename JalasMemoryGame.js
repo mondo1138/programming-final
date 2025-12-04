@@ -81,6 +81,8 @@ function handleCardFlip()
         secondPick.imageElement.style.visibility = "hidden";
 
         matchedCount++
+
+        scoreBoard.textContext = "SCORE: " + matchedCount;
         
         firstPick = null;
         secondPick = null;
@@ -114,7 +116,8 @@ reward.style.fontSize = "20px";
 reward.style.marginTop = "20px";
 
   // show win button if all pairs matched
-    if (matchedCount === totalPairs) {
+    if (matchedCount === totalPairs)
+    {
         reward.style.display = "block";
     }
 
@@ -129,9 +132,11 @@ document.body.appendChild(reward);
 // Button redirect when clicked
 //found the href method to redirect to a different page from W3schools
 //https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
-reward.onclick = function () {
+reward.onclick = function ()
+{
     reward.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"; 
 };
+
 
 
 
