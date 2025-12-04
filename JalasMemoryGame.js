@@ -14,6 +14,8 @@ let secondPick = null;
 let stopClicks = false;
 const maxAttempts = 16;
 let score = 0;
+Let matchedCount = 0;
+Let totalPairs = 8;
 //Got this idea from W3Schools.com
 const scoreBoard = document.createElement("p");
 scoreBoard.textContent = "SCORE: " + score;
@@ -72,6 +74,8 @@ function handleCardFlip()
         firstPick.imageElement.style.visibility = "hidden";
         secondPick.imageElement.style.visibility = "hidden";
 
+        matchedCount++
+        
         firstPick = null;
         secondPick = null;
         stopClicks = false;
@@ -96,6 +100,24 @@ function handleCardFlip()
         }
     }
 }
+//reward button for if they win
+let reward = document.createElement("button");
+reward.innerHTML = "Congrats, you win!! Click here for your prize!";
+reward.style.display = "none"; 
+reward.style.fontSize = "20px";
+reward.style.marginTop = "20px";
+
+// Add button to the page
+document.body.appendChild(reward);
+
+// Button redirect when clicked
+//found the href method to redirect to a different page from W3schools
+//https://www.w3schools.com/howto/howto_js_redirect_webpage.asp
+reward.onclick = function () {
+    reward.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"; 
+};
+
+
 
 
 
