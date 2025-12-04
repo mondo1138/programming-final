@@ -85,21 +85,6 @@ scoreBoard.textContent = "SCORE: " + score;
 scoreBoard.style.fontSize = "35px";
 document.body.appendChild(scoreBoard);
 //End of W3Schools code
-//start game function
-function startOfGame()
-{
-    cardsShuffled = [];
-    for (let i = 0; i <= cardsList.length; i++)
-    {
-        cardsShuffled.push(cardList[i]);
-        cardsShuffled.push(cardList[i]);
-    }
-if (firstPick.imageSource === secondPick.imageSource)
-    {
-        score++
-    }
-    //still need to add more here
-}
 
 //handle card flip function
 function handleCardFlip()
@@ -197,3 +182,4 @@ reward.onclick = function ()
 {
     reward.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1"; 
 };
+
