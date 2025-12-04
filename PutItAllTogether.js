@@ -25,7 +25,8 @@ let totalPairs = 8;
 
 // shuffle 
 
-for (let i = 0; i < cardList.length; i++) {
+for (let i = 0; i < cardList.length; i++) 
+{
     randomCards.push(cardList[i]);
     randomCards.push(cardList[i]);
 }
@@ -34,8 +35,10 @@ randomCards.sort(() => Math.random() - 0.5);
 
 // class
 
-class cardGame {
-    constructor(imageSource, imageElement) {
+class cardGame 
+{
+    constructor(imageSource, imageElement) 
+    {
         this.imageSource = imageSource;
         this.imageElement = imageElement;
         this.isFlipped = false;
@@ -43,12 +46,14 @@ class cardGame {
 
         this.imageElement.src = "logo_header.gif";
 
-        imageElement.addEventListener("click", () => {
+        imageElement.addEventListener("click", () => 
+        {
             this.flipCard();
         });
     }
 
-    flipCard() {
+    flipCard() 
+    {
         if (this.isMatched) return;
         if (this.isFlipped) return;
         if (stopClicks) return;
@@ -59,12 +64,14 @@ class cardGame {
         handleCardFlip();
     }
 
-    hideCard() {
+    hideCard() 
+    {
         this.isFlipped = false;
         this.imageElement.src = "logo_header.gif";
     }
 
-    matchCard() {
+    matchCard() 
+    {
         this.isMatched = true;
     }
 }
@@ -78,7 +85,8 @@ document.body.appendChild(scoreBoard);
 
 //create cards & bind to html
 
-for (let i = 1; i <= 16; i++) {
+for (let i = 1; i <= 16; i++) 
+{
     let img = document.getElementById("imgCellNum" + i);
 
     let source = randomCards[i - 1] + ".jpg";
@@ -89,10 +97,12 @@ for (let i = 1; i <= 16; i++) {
 
 // card flip logic
 
-function handleCardFlip() {
+function handleCardFlip() 
+{
 
     // Find first pick
-    if (!firstPick) {
+    if (!firstPick) 
+    {
         firstPick = cards.find(c => c.isFlipped && !c.isMatched);
         return;
     }
@@ -110,7 +120,8 @@ function handleCardFlip() {
         firstPick.matchCard();
         secondPick.matchCard();
 
-        setTimeout(() => {
+        setTimeout(() => 
+        {
             firstPick.imageElement.style.visibility = "hidden";
             secondPick.imageElement.style.visibility = "hidden";
 
@@ -118,33 +129,38 @@ function handleCardFlip() {
             score += 1;
             scoreBoard.textContent = "SCORE: " + score;
 
-            if (matchedCount === totalPairs) {
+            if (matchedCount === totalPairs) 
+            {
                 reward.style.display = "block";
-            }
-
-            resetPicks();
-        }, 700);
-    }
-
-    // NO MATCH
-    else {
-        incorrectAttempts++;
-
-        setTimeout(() => {
-            firstPick.hideCard();
-            secondPick.hideCard();
-
-            if (incorrectAttempts >= maxAttempts) {
-                alert("Game Over‼ Too many incorrect attempts!");
-                location.reload();
             }
 
             resetPicks();
         }, 1000);
     }
+
+    // NO MATCH
+    else 
+    {
+        incorrectAttempts++;
+
+        setTimeout(() => 
+        {
+            firstPick.hideCard();
+            secondPick.hideCard();
+
+            if (incorrectAttempts >= maxAttempts) 
+            {
+                alert("Game Over‼ Too many incorrect attempts!");
+                location.reload();
+            }
+
+            resetPicks();
+        }, 1500);
+    }
 }
 
-function resetPicks() {
+function resetPicks() 
+{
     firstPick = null;
     secondPick = null;
     stopClicks = false;
@@ -160,6 +176,7 @@ reward.style.marginTop = "20px";
 document.body.appendChild(reward);
 
 // Le redirect
-reward.onclick = function () {
+reward.onclick = function () 
+{
     window.location.href = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
 };
